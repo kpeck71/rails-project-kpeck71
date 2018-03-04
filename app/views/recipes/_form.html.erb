@@ -1,0 +1,28 @@
+<%= form_for @recipe do |f| %>
+<%= f.label "Name" %>
+<%= f.text_field :name %><br></br>
+Ingredients:
+ <ul>
+   <%= f.fields_for :ingredients do |ingredients_form| %>
+     <li>
+       <%= ingredients_form.label :name %>
+       <%= ingredients_form.text_field :name %>
+
+       <%= ingredients_form.label :description %>
+       <%= ingredients_form.text_field :description %>
+       ...
+     </li>
+   <% end %>
+ </ul>
+
+
+<%= f.label "Ingredients" %>
+<%= f.text_area :ingredients %><br></br>
+<%= f.label "Categories" %><br>
+<%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+<%= f.fields_for :categories, @recipe.categories.build do |categories_fcd ields| %>
+  <br><%= f.label "Create New Category" %>
+  <%= categories_fields.text_field :name %><br></br>
+<% end %>
+<%= f.submit %>
+<% end %>

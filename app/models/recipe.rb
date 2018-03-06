@@ -9,7 +9,7 @@ class Recipe < ActiveRecord::Base
   def ingredient_attributes=(ingredient_attribute)
     ingredient_attributes.values.each do |ingredient_attribute|
       recipe = Recipe.find_or_create_by(ingredient_attribute)
-      self.ingredients << ingredient
+      recipe.ingredients << ingredient
     end
   end
 

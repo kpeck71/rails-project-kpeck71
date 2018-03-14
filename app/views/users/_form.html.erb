@@ -5,7 +5,7 @@
         <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="email@example.com">
       </div>
     </div>
-    <%= form_for @user do |f| %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <%= f.text_field :name, placeholder: "First and last name", class: "form-control" %><br>
       <%= f.text_field :email, placeholder: "Enter email", class: "form-control" %><br>
       <%= f.password_field :password, placeholder: "Password", class: "form-control" %> <br>

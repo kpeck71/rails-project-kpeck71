@@ -1,9 +1,10 @@
 class RecipesController < ApplicationController
+before_action :authenticate_user!
 
   def new
     #giving my form an AR instance to wrap around so my form knows which model I'm building this form for
     @recipe = Recipe.new
-    5.times{@recipe.ingredients.build}
+    5.times{@recipe.ingredients.build} #build is initializing new record from relation
   end
 
   def create

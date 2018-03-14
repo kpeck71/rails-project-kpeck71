@@ -2,18 +2,23 @@ Rails.application.routes.draw do
 
   root to: "recipes#index"
 
-  post 'recipes/:id/cooked', to: 'recipes#cooked', as: 'cooked'
+  # post 'recipes/:id/cooked', to: 'recipes#cooked', as: 'cooked'
 
   resources :recipes
   resources :categories
   resources :ingredients
-  resources :users
 
-  get '/signup', to: 'users#new'
-  get '/auth/:provider/callback', to: 'sessions#create'
-  get '/signin', to: 'sessions#new'
-  post '/signin', to: 'sessions#create'
-  get '/logout', to: 'sessions#destroy'
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks", registrations: 'users/registrations' }, skip: [:sessions] 
+     as :user do
+       get 'login' => 'devise/sessions#new', :as => :new_user_session
+       post 'login' => 'devise/sessions#create', :as => :user_session
+       delete 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session
+     end
+
+   devise_scope :user do
+     get "/signup" => "users/registrations#new"
+     get "/profile" => 'users/registrations#edit'
+   end
 
 end
 

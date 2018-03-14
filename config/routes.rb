@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :recipes
   resources :categories
+  resources :ingredients
   resources :users
 
   get '/signup', to: 'users#new'

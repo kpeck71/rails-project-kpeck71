@@ -10,9 +10,10 @@ Rails.application.routes.draw do
   resources :users
 
   get '/signup', to: 'users#new'
-  get '/signin' => 'sessions#new'
-  post '/signin' => 'sessions#create'
-  get '/logout' => 'sessions#destroy'
+  get '/auth/:provider/callback', to: 'sessions#create'
+  get '/signin', to: 'sessions#new'
+  post '/signin', to: 'sessions#create'
+  get '/logout', to: 'sessions#destroy'
 
 end
 

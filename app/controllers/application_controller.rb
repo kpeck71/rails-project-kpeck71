@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
+  def after_sign_in_path_for(resource)
+    request.env['omniauth.origin'] || root_path
+  end
+
   private
     def require_logged_in
       redirect_to root_path unless logged_in?
